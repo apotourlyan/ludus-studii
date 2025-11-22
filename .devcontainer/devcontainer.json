@@ -1,0 +1,19 @@
+{
+  "name": "Ludus Studii",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "golang.go",
+        "anthropic.claude-code"
+      ]
+    }
+  },
+
+  "forwardPorts": [8080, 5432],
+  
+  "postCreateCommand": ".devcontainer/post-create.sh"
+}
