@@ -33,3 +33,6 @@ go.work.sum
 
 # Claude
 CLAUDE.md
+
+# migrate tool
+**/migrations/migrate

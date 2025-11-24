@@ -3,17 +3,29 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
-  
   "customizations": {
     "vscode": {
       "extensions": [
         "golang.go",
+        "ms-ossdata.vscode-pgsql",
         "anthropic.claude-code"
       ]
     }
   },
-
-  "forwardPorts": [8080, 5432],
-  
+  "forwardPorts": [
+    8080,
+    5432
+  ],
+  "portsAttributes": {
+    "8080": {
+      "label": "API"
+    },
+    "5432": {
+      "label": "PostgreSQL"
+    }
+  },
+  "otherPortsAttributes": {
+    "onAutoForward": "ignore"
+  },
   "postCreateCommand": ".devcontainer/post-create.sh"
 }

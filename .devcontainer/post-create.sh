@@ -7,4 +7,9 @@ go install github.com/air-verse/air@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
 go install golang.org/x/tools/cmd/stringer@latest
 
+# Install migration tool
+cd tools/migrate
+GOWORK=off go install ./cmd/migrate
+cd ../..
+
 echo "✅ All tools installed successfully!"
