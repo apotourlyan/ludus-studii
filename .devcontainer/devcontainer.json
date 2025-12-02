@@ -27,5 +27,11 @@
   "otherPortsAttributes": {
     "onAutoForward": "ignore"
   },
+  "containerEnv": {
+    "DATABASE_URL": "postgres://ludus:ludus@db:5432/ludus_studii_user_db?sslmode=disable",
+    "MACHINE_ID": "1",
+    "PORT": "8080",
+    "SHUTDOWN_TIMEOUT": "0s"
+  },
   "postCreateCommand": ".devcontainer/post-create.sh"
 }
