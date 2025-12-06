@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/apotourlyan/ludus-studii/pkg/envvar"
+	"github.com/apotourlyan/ludus-studii/pkg/envutil/envvar"
 )
 
 type port struct {

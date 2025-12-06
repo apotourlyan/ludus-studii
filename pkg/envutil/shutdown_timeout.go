@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/apotourlyan/ludus-studii/pkg/envvar"
+	"github.com/apotourlyan/ludus-studii/pkg/envutil/envvar"
 )
 
 type shutdownTimeout struct {

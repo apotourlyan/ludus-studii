@@ -8,11 +8,14 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/apotourlyan/ludus-studii/pkg/httputil/middleware"
 )
 
 type Server struct {
 	server          *http.Server
 	mux             *http.ServeMux
+	handler         http.Handler
 	shutdownTimeout time.Duration
 }
 
@@ -35,7 +38,17 @@ func NewServer(config *ServerConfig) *Server {
 		IdleTimeout:  config.IdleTimeout,
 	}
 
-	return &Server{server, mux, config.ShutdownTimeout}
+	handler := middleware.CorrelationID(mux)
+
+	return &Server{server, mux, handler, config.ShutdownTimeout}
+}
+
+func (s *Server) Handler() http.Handler {
+	return s.handler
+}
+
+func (s *Server) AddMiddleware(m func(next http.Handler) http.Handler) {
+	s.handler = m(s.handler)
 }
 
 func (s *Server) AddEndpoint(

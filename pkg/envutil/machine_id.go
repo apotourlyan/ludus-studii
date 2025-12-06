@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/apotourlyan/ludus-studii/pkg/envvar"
+	"github.com/apotourlyan/ludus-studii/pkg/envutil/envvar"
 )
 
 type machineID struct {
