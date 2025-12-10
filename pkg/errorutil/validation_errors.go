@@ -14,5 +14,6 @@ func FieldErrorFormat(name string) *FieldError {
 }
 
 func FieldErrorStringLength(name string, limit int) *FieldError {
-	return NewFieldError(name, errcode.StringLength, errtext.StringLength(name, limit))
+	return NewFieldError(
+		name, errcode.StringLength, errtext.StringLength(name, limit))
 }

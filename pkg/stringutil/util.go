@@ -41,3 +41,12 @@ func IsWhitespace(text string) bool {
 
 	return true
 }
+
+func Capitalize(text string) string {
+	if text == "" {
+		return text
+	}
+	runes := []rune(text)
+	runes[0] = unicode.ToUpper(runes[0])
+	return string(runes)
+}

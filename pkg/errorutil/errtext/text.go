@@ -1,6 +1,10 @@
 package errtext
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/apotourlyan/ludus-studii/pkg/stringutil"
+)
 
 const (
 	Database = "An unexpected database error has occured."
@@ -9,13 +13,17 @@ const (
 )
 
 func Required(name string) string {
-	return fmt.Sprintf("%v is required", name)
+	return fmt.Sprintf("%v is required", stringutil.Capitalize(name))
 }
 
 func Format(name string) string {
-	return fmt.Sprintf("%v format is invalid", name)
+	return fmt.Sprintf("%v format is invalid", stringutil.Capitalize(name))
 }
 
 func StringLength(name string, limit int) string {
-	return fmt.Sprintf("%v must be at least %d characters", name, limit)
+	return fmt.Sprintf(
+		"%v must be at least %d characters",
+		stringutil.Capitalize(name),
+		limit,
+	)
 }

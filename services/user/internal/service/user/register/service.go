@@ -12,8 +12,6 @@ import (
 	"github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/errtext"
 )
 
-const ErrorCodeEmailExists = "EMAIL_EXISTS"
-
 type Service struct {
 	repo   repository.UserRepository
 	idgen  idutil.Generator

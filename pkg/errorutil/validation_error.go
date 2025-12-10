@@ -21,11 +21,11 @@ type FieldErrorDto struct {
 	Message string `json:"message"`
 }
 
-func (dto *ValidationErrorDto) Has(field, code, text string) bool {
+func (dto *ValidationErrorDto) Has(field, code, message string) bool {
 	for _, x := range dto.Data {
 		if x.Name == field {
 			for _, e := range x.Errors {
-				if e.Code == code && e.Message == text {
+				if e.Code == code && e.Message == message {
 					return true
 				}
 			}
@@ -55,6 +55,16 @@ func NewValidationError(errors []FieldError) error {
 
 func NewFieldError(name string, code string, message string) *FieldError {
 	return &FieldError{name, code, message}
+}
+
+func (e *ValidationError) Has(field, code, message string) bool {
+	for _, x := range e.data {
+		if x.field == field && x.code == code && x.message == message {
+			return true
+		}
+	}
+
+	return false
 }
 
 func (e *ValidationError) Error() string {

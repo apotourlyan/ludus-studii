@@ -13,6 +13,7 @@ import (
 	"github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register"
 	rerrcode "github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/errcode"
 	rerrtext "github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/errtext"
+	"github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/field"
 )
 
 func TestRegister_Success(t *testing.T) {
@@ -114,9 +115,9 @@ func TestRegister_DataRequired(t *testing.T) {
 	testutil.DontWantNil(t, err)
 	testutil.GotWant(t, err.Type, errtype.Validation)
 
-	got := err.Has("Email", errcode.Required, errtext.Required("Email"))
+	got := err.Has(field.Email, errcode.Required, errtext.Required(field.Email))
 	testutil.GotWant(t, got, true)
 
-	got = err.Has("Password", errcode.Required, errtext.Required("Password"))
+	got = err.Has(field.Password, errcode.Required, errtext.Required(field.Password))
 	testutil.GotWant(t, got, true)
 }

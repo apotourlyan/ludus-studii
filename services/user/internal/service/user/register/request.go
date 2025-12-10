@@ -8,6 +8,7 @@ import (
 	"github.com/apotourlyan/ludus-studii/pkg/stringutil"
 	"github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/errcode"
 	"github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/errtext"
+	"github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/field"
 )
 
 type Request struct {
@@ -29,11 +30,11 @@ func validateEmail(
 	errors []errorutil.FieldError, email string,
 ) []errorutil.FieldError {
 	if email == "" {
-		return append(errors, *errorutil.FieldErrorRequired("Email"))
+		return append(errors, *errorutil.FieldErrorRequired(field.Email))
 	}
 
 	if !emailutil.IsValid(email) {
-		return append(errors, *errorutil.FieldErrorFormat("Email"))
+		return append(errors, *errorutil.FieldErrorFormat(field.Email))
 	}
 
 	return errors
@@ -43,34 +44,35 @@ func validatePassword(
 	errors []errorutil.FieldError, password string,
 ) []errorutil.FieldError {
 	if password == "" {
-		return append(errors, *errorutil.FieldErrorRequired("Password"))
+		return append(errors, *errorutil.FieldErrorRequired(field.Password))
 	}
 
 	if len(password) < 8 {
-		return append(errors, *errorutil.FieldErrorStringLength("Password", 8))
+		return append(
+			errors, *errorutil.FieldErrorStringLength(field.Password, 8))
 	}
 
 	if !stringutil.ContainsUppercase(password) {
 		e := *errorutil.NewFieldError(
-			"password", errcode.PasswordUpper, errtext.PasswordUpper)
+			field.Password, errcode.PasswordUpper, errtext.PasswordUpper)
 		errors = append(errors, e)
 	}
 
 	if !stringutil.ContainsLowercase(password) {
 		e := *errorutil.NewFieldError(
-			"password", errcode.PasswordLower, errtext.PasswordLower)
+			field.Password, errcode.PasswordLower, errtext.PasswordLower)
 		errors = append(errors, e)
 	}
 
 	if !stringutil.ContainsDigit(password) {
 		e := *errorutil.NewFieldError(
-			"password", errcode.PasswordDigit, errtext.PasswordDigit)
+			field.Password, errcode.PasswordDigit, errtext.PasswordDigit)
 		errors = append(errors, e)
 	}
 
 	if !stringutil.ContainsSpecial(password) {
 		e := *errorutil.NewFieldError(
-			"password", errcode.PasswordSpecial, errtext.PasswordSpecial)
+			field.Password, errcode.PasswordSpecial, errtext.PasswordSpecial)
 		errors = append(errors, e)
 	}
 

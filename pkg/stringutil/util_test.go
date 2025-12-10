@@ -377,3 +377,187 @@ func TestContainsSpecial_WithoutSpecialChar(t *testing.T) {
 		})
 	}
 }
+
+func TestIsWhitespace_WithWhitespace(t *testing.T) {
+	cases := []struct {
+		name string
+		text string
+	}{
+		{
+			name: "single space",
+			text: " ",
+		},
+		{
+			name: "multiple spaces",
+			text: "   ",
+		},
+		{
+			name: "tab",
+			text: "\t",
+		},
+		{
+			name: "newline",
+			text: "\n",
+		},
+		{
+			name: "carriage return",
+			text: "\r",
+		},
+		{
+			name: "mixed whitespace",
+			text: " \t\n\r",
+		},
+		{
+			name: "multiple tabs",
+			text: "\t\t\t",
+		},
+		{
+			name: "multiple newlines",
+			text: "\n\n\n",
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			got := IsWhitespace(c.text)
+			testutil.GotWant(t, got, true)
+		})
+	}
+}
+
+func TestIsWhitespace_WithoutWhitespace(t *testing.T) {
+	cases := []struct {
+		name string
+		text string
+	}{
+		{
+			name: "empty string",
+			text: "",
+		},
+		{
+			name: "single letter",
+			text: "a",
+		},
+		{
+			name: "word",
+			text: "hello",
+		},
+		{
+			name: "letter with spaces",
+			text: " a ",
+		},
+		{
+			name: "word with leading space",
+			text: " hello",
+		},
+		{
+			name: "word with trailing space",
+			text: "hello ",
+		},
+		{
+			name: "digit",
+			text: "1",
+		},
+		{
+			name: "special char",
+			text: "!",
+		},
+		{
+			name: "spaces with letter",
+			text: "  a  ",
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			got := IsWhitespace(c.text)
+			testutil.GotWant(t, got, false)
+		})
+	}
+}
+
+func TestCapitalize(t *testing.T) {
+	cases := []struct {
+		name string
+		text string
+		want string
+	}{
+		{
+			name: "lowercase word",
+			text: "hello",
+			want: "Hello",
+		},
+		{
+			name: "uppercase word",
+			text: "HELLO",
+			want: "HELLO",
+		},
+		{
+			name: "already capitalized",
+			text: "Hello",
+			want: "Hello",
+		},
+		{
+			name: "single lowercase letter",
+			text: "a",
+			want: "A",
+		},
+		{
+			name: "single uppercase letter",
+			text: "A",
+			want: "A",
+		},
+		{
+			name: "empty string",
+			text: "",
+			want: "",
+		},
+		{
+			name: "starts with digit",
+			text: "1hello",
+			want: "1hello",
+		},
+		{
+			name: "starts with special char",
+			text: "!hello",
+			want: "!hello",
+		},
+		{
+			name: "starts with space",
+			text: " hello",
+			want: " hello",
+		},
+		{
+			name: "mixed case",
+			text: "hELLO",
+			want: "HELLO",
+		},
+		{
+			name: "with punctuation",
+			text: "hello!",
+			want: "Hello!",
+		},
+		{
+			name: "multiple words",
+			text: "hello world",
+			want: "Hello world",
+		},
+		{
+			name: "unicode lowercase",
+			text: "über",
+			want: "Über",
+		},
+		{
+			name: "unicode uppercase",
+			text: "Über",
+			want: "Über",
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			got := Capitalize(c.text)
+			testutil.GotWant(t, got, c.want)
+		})
+	}
+}
