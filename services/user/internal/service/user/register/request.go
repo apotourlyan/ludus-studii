@@ -6,17 +6,8 @@ import (
 	"github.com/apotourlyan/ludus-studii/pkg/emailutil"
 	"github.com/apotourlyan/ludus-studii/pkg/errorutil"
 	"github.com/apotourlyan/ludus-studii/pkg/stringutil"
-)
-
-const (
-	codePasswordUpper   = "PASSWORD_UPPER"
-	codePasswordLower   = "PASSWORD_LOWER"
-	codePasswordDigit   = "PASSWORD_NUMBER"
-	codePasswordSpecial = "PASSWORD_SPECIAL"
-	textPasswordUpper   = "Password must contain at least one uppercase letter"
-	textPasswordLower   = "Password must contain at least one lowercase letter"
-	textPasswordDigit   = "Password must contain at least one digit"
-	textPasswordSpecial = "Password must contain at least one special character"
+	"github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/errcode"
+	"github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/errtext"
 )
 
 type Request struct {
@@ -61,25 +52,25 @@ func validatePassword(
 
 	if !stringutil.ContainsUppercase(password) {
 		e := *errorutil.NewFieldError(
-			"password", codePasswordUpper, textPasswordUpper)
+			"password", errcode.PasswordUpper, errtext.PasswordUpper)
 		errors = append(errors, e)
 	}
 
 	if !stringutil.ContainsLowercase(password) {
 		e := *errorutil.NewFieldError(
-			"password", codePasswordLower, textPasswordLower)
+			"password", errcode.PasswordLower, errtext.PasswordLower)
 		errors = append(errors, e)
 	}
 
 	if !stringutil.ContainsDigit(password) {
 		e := *errorutil.NewFieldError(
-			"password", codePasswordDigit, textPasswordDigit)
+			"password", errcode.PasswordDigit, errtext.PasswordDigit)
 		errors = append(errors, e)
 	}
 
 	if !stringutil.ContainsSpecial(password) {
 		e := *errorutil.NewFieldError(
-			"password", codePasswordSpecial, textPasswordSpecial)
+			"password", errcode.PasswordSpecial, errtext.PasswordSpecial)
 		errors = append(errors, e)
 	}
 

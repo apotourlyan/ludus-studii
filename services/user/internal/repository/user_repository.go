@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	_ "embed"
 
+	"github.com/apotourlyan/ludus-studii/pkg/dbutil"
 	"github.com/apotourlyan/ludus-studii/pkg/errorutil"
 	"github.com/apotourlyan/ludus-studii/services/user/internal/domain"
 )
@@ -15,11 +16,11 @@ type UserRepository interface {
 }
 
 type postgresUserRepository struct {
-	db *sql.DB
+	*dbutil.Repository
 }
 
 func NewUserRepository(db *sql.DB) UserRepository {
-	return &postgresUserRepository{db: db}
+	return &postgresUserRepository{Repository: dbutil.NewRepository(db)}
 }
 
 //go:embed scripts/user_insert.sql
@@ -31,22 +32,28 @@ var existsByEmailScript string
 func (r *postgresUserRepository) Create(
 	ctx context.Context, user *domain.User,
 ) error {
-	_, err := r.db.ExecContext(
-		ctx,
-		insertScript,
-		user.ID,
-		user.Email,
-		user.PasswordHash,
-		user.Role,
-	)
+	return r.Command(ctx, func(e dbutil.Executor) error {
+		_, err := e.ExecContext(
+			ctx,
+			insertScript,
+			user.ID,
+			user.Email,
+			user.PasswordHash,
+			user.Role,
+		)
 
-	return errorutil.DatabaseError(err)
+		return errorutil.DatabaseError(err)
+	})
 }
 
 func (r *postgresUserRepository) ExistsByEmail(
 	ctx context.Context, email string,
 ) (bool, error) {
 	var exists bool
-	err := r.db.QueryRowContext(ctx, existsByEmailScript, email).Scan(&exists)
+
+	err := r.Query(ctx, func(exec dbutil.Executor) error {
+		return exec.QueryRowContext(ctx, existsByEmailScript, email).Scan(&exists)
+	})
+
 	return exists, errorutil.DatabaseError(err)
 }

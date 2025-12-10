@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"github.com/apotourlyan/ludus-studii/pkg/errorutil"
+	"github.com/apotourlyan/ludus-studii/pkg/httputil/content"
+	"github.com/apotourlyan/ludus-studii/pkg/httputil/header"
 )
 
 func ParseBody[TReq any](r *http.Request) (*TReq, error) {
@@ -17,7 +19,7 @@ func WriteResponse(
 	w http.ResponseWriter,
 	result *RequestResult,
 ) {
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set(header.ContentType, content.ApplicationJson)
 	w.WriteHeader(result.Code)
 	json.NewEncoder(w).Encode(result.Data)
 }

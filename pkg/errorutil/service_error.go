@@ -3,12 +3,14 @@ package errorutil
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/apotourlyan/ludus-studii/pkg/errorutil/errtype"
 )
 
-type serviceErrorDto struct {
-	Type    ErrorType `json:"type"`
-	Code    string    `json:"code"`
-	Message string    `json:"message"`
+type ServiceErrorDto struct {
+	Type    errtype.Type `json:"type"`
+	Code    string       `json:"code"`
+	Message string       `json:"message"`
 }
 
 type ServiceError struct {
@@ -46,8 +48,8 @@ func (e *ServiceError) Error() string {
 }
 
 func (e *ServiceError) MarshalJSON() ([]byte, error) {
-	return json.Marshal(serviceErrorDto{
-		Type:    TypeService,
+	return json.Marshal(ServiceErrorDto{
+		Type:    errtype.Service,
 		Code:    e.code,
 		Message: e.message,
 	})

@@ -3,10 +3,10 @@ package handler
 import (
 	"net/http"
 
-	"github.com/apotourlyan/ludus-studii/pkg/errorutil"
+	"github.com/apotourlyan/ludus-studii/pkg/errorutil/errcode"
 	"github.com/apotourlyan/ludus-studii/pkg/httputil"
-	"github.com/apotourlyan/ludus-studii/services/user/internal/service/errcode"
 	"github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register"
+	rerrcode "github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/errcode"
 )
 
 type registerHandler struct {
@@ -15,8 +15,8 @@ type registerHandler struct {
 }
 
 func NewRegisterHandler(service *register.Service) Post {
-	codeMap := errorutil.GetBaseCodeMap()
-	codeMap[errcode.EmailExists] = http.StatusConflict
+	codeMap := errcode.GetBaseCodeMap()
+	codeMap[rerrcode.EmailExists] = http.StatusConflict
 
 	return &registerHandler{service, codeMap}
 }

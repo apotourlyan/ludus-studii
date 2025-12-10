@@ -8,7 +8,8 @@ import (
 	"github.com/apotourlyan/ludus-studii/pkg/passutil"
 	"github.com/apotourlyan/ludus-studii/services/user/internal/domain"
 	"github.com/apotourlyan/ludus-studii/services/user/internal/repository"
-	errcodes "github.com/apotourlyan/ludus-studii/services/user/internal/service/errcode"
+	"github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/errcode"
+	"github.com/apotourlyan/ludus-studii/services/user/internal/service/user/register/errtext"
 )
 
 const ErrorCodeEmailExists = "EMAIL_EXISTS"
@@ -42,8 +43,8 @@ func (s *Service) Register(
 
 	if exists {
 		return nil, errorutil.NewServiceError(
-			errcodes.EmailExists,
-			"There is a registered user with that email.")
+			errcode.EmailExists,
+			errtext.EmailExists)
 	}
 
 	passwordHash, err := s.hasher.Hash(m.Password)
@@ -64,8 +65,7 @@ func (s *Service) Register(
 	}
 
 	response := &Response{
-		ID:   user.ID,
-		Role: user.Role,
+		ID: user.ID,
 	}
 
 	return response, nil

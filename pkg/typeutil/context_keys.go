@@ -2,4 +2,5 @@ package typeutil
 
 type contextKey string
 
-const KeyCorrelationId contextKey = "correlation_id"
+const KeyCorrelationID contextKey = "correlation_id"
+const KeyTestTx contextKey = "test_tx"

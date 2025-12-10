@@ -1,12 +1,16 @@
 package errorutil
 
+import (
+	"github.com/apotourlyan/ludus-studii/pkg/errorutil/errcode"
+	"github.com/apotourlyan/ludus-studii/pkg/errorutil/errtext"
+)
+
 func DatabaseError(cause error) error {
 	if cause == nil {
 		return nil
 	}
 
-	message := "An unexpected database error has occured."
-	return Wrap(CodeDatabase, message, cause)
+	return Wrap(errcode.Database, errtext.Database, cause)
 }
 
 func SystemError(cause error) error {
@@ -14,8 +18,7 @@ func SystemError(cause error) error {
 		return nil
 	}
 
-	message := "An unexpected system error has occured."
-	return Wrap(CodeSystem, message, cause)
+	return Wrap(errcode.System, errtext.System, cause)
 }
 
 func RequestError(cause error) error {
@@ -23,6 +26,5 @@ func RequestError(cause error) error {
 		return nil
 	}
 
-	message := "The request is invalid."
-	return Wrap(CodeRequest, message, cause)
+	return Wrap(errcode.Request, errtext.Request, cause)
 }

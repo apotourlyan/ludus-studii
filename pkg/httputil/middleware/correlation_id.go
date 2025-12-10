@@ -20,7 +20,7 @@ func CorrelationID(next http.Handler) http.Handler {
 		}
 
 		// Put in context
-		ctx := context.WithValue(r.Context(), typeutil.KeyCorrelationId, correlationID)
+		ctx := context.WithValue(r.Context(), typeutil.KeyCorrelationID, correlationID)
 
 		// Echo back in response (useful for debugging)
 		w.Header().Set(header.CorrelationID, correlationID)

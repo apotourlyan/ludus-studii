@@ -2,6 +2,7 @@ package testutil
 
 import (
 	"fmt"
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -94,6 +95,23 @@ func DontWantNil(t *testing.T, value any) {
 	t.Helper()
 	if value == nil {
 		t.Fatal("expected non-nil value")
+	}
+
+	// Check the actual value, because value == nil is true
+	// only if both interface type and value are nil
+	v := reflect.ValueOf(value)
+	switch v.Kind() {
+	case
+		reflect.Pointer,
+		reflect.Slice,
+		reflect.Map,
+		reflect.Chan,
+		reflect.Func,
+		reflect.Interface:
+
+		if v.IsNil() {
+			t.Fatal("expected non-nil pointer")
+		}
 	}
 }
 
