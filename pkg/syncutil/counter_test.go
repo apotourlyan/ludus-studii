@@ -8,6 +8,8 @@ import (
 )
 
 func TestCounter_Next_Success(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name        string
 		shouldReset bool
@@ -36,6 +38,8 @@ func TestCounter_Next_Success(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			counter := NewCounter()
 			var result int64
 			for i := 0; i < c.callCount; i++ {
@@ -49,7 +53,11 @@ func TestCounter_Next_Success(t *testing.T) {
 }
 
 func TestCounter_Next_Reset(t *testing.T) {
+	t.Parallel()
+
 	t.Run("reset after increments", func(t *testing.T) {
+		t.Parallel()
+
 		counter := NewCounter()
 
 		// Increment a few times
@@ -68,6 +76,8 @@ func TestCounter_Next_Reset(t *testing.T) {
 	})
 
 	t.Run("multiple resets", func(t *testing.T) {
+		t.Parallel()
+
 		counter := NewCounter()
 		for range 3 {
 			result := counter.Next(func() bool { return true })
@@ -77,6 +87,8 @@ func TestCounter_Next_Reset(t *testing.T) {
 }
 
 func TestCounter_Next_Concurrent(t *testing.T) {
+	t.Parallel()
+
 	counter := NewCounter()
 	var wg sync.WaitGroup
 	goroutines := 100

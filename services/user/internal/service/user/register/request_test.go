@@ -13,6 +13,8 @@ import (
 )
 
 func TestValidate_Success(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name     string
 		email    string
@@ -32,6 +34,8 @@ func TestValidate_Success(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			req := &Request{
 				Email:    c.email,
 				Password: c.password,
@@ -44,6 +48,8 @@ func TestValidate_Success(t *testing.T) {
 }
 
 func TestValidate_TrimmsInput(t *testing.T) {
+	t.Parallel()
+
 	req := &Request{
 		Email:    "  test@example.com  ",
 		Password: "  Password123!  ",
@@ -58,6 +64,8 @@ func TestValidate_TrimmsInput(t *testing.T) {
 }
 
 func TestValidate_EmailErrors(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name     string
 		email    string
@@ -98,6 +106,8 @@ func TestValidate_EmailErrors(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			req := &Request{
 				Email:    c.email,
 				Password: "Password123!",
@@ -116,6 +126,8 @@ func TestValidate_EmailErrors(t *testing.T) {
 }
 
 func TestValidate_PasswordErrors(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name     string
 		password string
@@ -162,6 +174,8 @@ func TestValidate_PasswordErrors(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			req := &Request{
 				Email:    "test@example.com",
 				Password: c.password,
@@ -180,6 +194,8 @@ func TestValidate_PasswordErrors(t *testing.T) {
 }
 
 func TestValidate_EmailAndPasswordRequired(t *testing.T) {
+	t.Parallel()
+
 	req := &Request{
 		Email:    "",
 		Password: "",
@@ -199,6 +215,8 @@ func TestValidate_EmailAndPasswordRequired(t *testing.T) {
 }
 
 func TestValidate_EmailFormatAndPasswordLength(t *testing.T) {
+	t.Parallel()
+
 	req := &Request{
 		Email:    "invalid-email",
 		Password: "Pass1!",
@@ -219,6 +237,8 @@ func TestValidate_EmailFormatAndPasswordLength(t *testing.T) {
 }
 
 func TestValidate_EmailFormatAndPasswordRequirements(t *testing.T) {
+	t.Parallel()
+
 	req := &Request{
 		Email:    "invalid-email",
 		Password: "кирилица",

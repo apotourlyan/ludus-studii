@@ -7,6 +7,8 @@ import (
 )
 
 func TestContainsUppercase_WithUppercase(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name string
 		text string
@@ -43,6 +45,8 @@ func TestContainsUppercase_WithUppercase(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := ContainsUppercase(c.text)
 			testutil.GotWant(t, got, true)
 		})
@@ -50,6 +54,8 @@ func TestContainsUppercase_WithUppercase(t *testing.T) {
 }
 
 func TestContainsUppercase_WithoutUppercase(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name string
 		text string
@@ -78,6 +84,8 @@ func TestContainsUppercase_WithoutUppercase(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := ContainsUppercase(c.text)
 			testutil.GotWant(t, got, false)
 		})
@@ -85,6 +93,8 @@ func TestContainsUppercase_WithoutUppercase(t *testing.T) {
 }
 
 func TestContainsLowercase_WithLowercase(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name string
 		text string
@@ -121,6 +131,8 @@ func TestContainsLowercase_WithLowercase(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := ContainsLowercase(c.text)
 			testutil.GotWant(t, got, true)
 		})
@@ -128,6 +140,8 @@ func TestContainsLowercase_WithLowercase(t *testing.T) {
 }
 
 func TestContainsLowercase_WithoutLowercase(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name string
 		text string
@@ -156,6 +170,8 @@ func TestContainsLowercase_WithoutLowercase(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := ContainsLowercase(c.text)
 			testutil.GotWant(t, got, false)
 		})
@@ -163,6 +179,8 @@ func TestContainsLowercase_WithoutLowercase(t *testing.T) {
 }
 
 func TestContainsDigit_WithDigit(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name string
 		text string
@@ -199,6 +217,8 @@ func TestContainsDigit_WithDigit(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := ContainsDigit(c.text)
 			testutil.GotWant(t, got, true)
 		})
@@ -206,6 +226,8 @@ func TestContainsDigit_WithDigit(t *testing.T) {
 }
 
 func TestContainsDigit_WithoutDigit(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name string
 		text string
@@ -230,6 +252,8 @@ func TestContainsDigit_WithoutDigit(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := ContainsDigit(c.text)
 			testutil.GotWant(t, got, false)
 		})
@@ -237,6 +261,8 @@ func TestContainsDigit_WithoutDigit(t *testing.T) {
 }
 
 func TestContainsSpecial_WithSpecialChar(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name string
 		text string
@@ -341,6 +367,8 @@ func TestContainsSpecial_WithSpecialChar(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := ContainsSpecial(c.text)
 			testutil.GotWant(t, got, true)
 		})
@@ -348,6 +376,8 @@ func TestContainsSpecial_WithSpecialChar(t *testing.T) {
 }
 
 func TestContainsSpecial_WithoutSpecialChar(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name string
 		text string
@@ -372,6 +402,8 @@ func TestContainsSpecial_WithoutSpecialChar(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := ContainsSpecial(c.text)
 			testutil.GotWant(t, got, false)
 		})
@@ -379,6 +411,8 @@ func TestContainsSpecial_WithoutSpecialChar(t *testing.T) {
 }
 
 func TestIsWhitespace_WithWhitespace(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name string
 		text string
@@ -419,6 +453,8 @@ func TestIsWhitespace_WithWhitespace(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := IsWhitespace(c.text)
 			testutil.GotWant(t, got, true)
 		})
@@ -426,6 +462,8 @@ func TestIsWhitespace_WithWhitespace(t *testing.T) {
 }
 
 func TestIsWhitespace_WithoutWhitespace(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name string
 		text string
@@ -470,6 +508,8 @@ func TestIsWhitespace_WithoutWhitespace(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := IsWhitespace(c.text)
 			testutil.GotWant(t, got, false)
 		})
@@ -477,6 +517,8 @@ func TestIsWhitespace_WithoutWhitespace(t *testing.T) {
 }
 
 func TestCapitalize(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name string
 		text string
@@ -556,6 +598,8 @@ func TestCapitalize(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := Capitalize(c.text)
 			testutil.GotWant(t, got, c.want)
 		})

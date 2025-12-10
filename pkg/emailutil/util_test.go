@@ -8,6 +8,8 @@ import (
 )
 
 func TestParse_ValidEmails(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name       string
 		email      string
@@ -90,6 +92,8 @@ func TestParse_ValidEmails(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			parts, err := Parse(c.email)
 			testutil.DontWantError(t, err)
 			testutil.DontWantNil(t, parts)
@@ -100,6 +104,8 @@ func TestParse_ValidEmails(t *testing.T) {
 }
 
 func TestParse_InvalidEmails(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name  string
 		email string
@@ -136,6 +142,8 @@ func TestParse_InvalidEmails(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			parts, err := Parse(c.email)
 			testutil.WantError(t, err)
 			testutil.GotWant(t, err, ErrInvalidFormat)
@@ -148,6 +156,8 @@ func TestParse_InvalidEmails(t *testing.T) {
 }
 
 func TestIsValid_ValidEmails(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name  string
 		email string
@@ -188,6 +198,8 @@ func TestIsValid_ValidEmails(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := IsValid(c.email)
 			testutil.GotWant(t, got, true)
 		})
@@ -195,6 +207,8 @@ func TestIsValid_ValidEmails(t *testing.T) {
 }
 
 func TestIsValid_InvalidEmails(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name  string
 		email string
@@ -335,6 +349,8 @@ func TestIsValid_InvalidEmails(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := IsValid(c.email)
 			testutil.GotWant(t, got, false)
 		})

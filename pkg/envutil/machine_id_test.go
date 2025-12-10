@@ -15,6 +15,8 @@ func (m *mockProvider) Get(varname string) string {
 }
 
 func TestMachineID_Get_Success(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name   string
 		envVal string
@@ -44,6 +46,8 @@ func TestMachineID_Get_Success(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			mid := MachineID(&mockProvider{value: c.envVal})
 			got := mid.Value()
 			testutil.GotWant(t, got, c.want)
@@ -52,6 +56,8 @@ func TestMachineID_Get_Success(t *testing.T) {
 }
 
 func TestMachineID_NewMachineID_Panics(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name      string
 		envVal    string
@@ -86,6 +92,8 @@ func TestMachineID_NewMachineID_Panics(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			testutil.GotWantPanic(t, func() {
 				MachineID(&mockProvider{value: c.envVal})
 			}, c.wantPanic)

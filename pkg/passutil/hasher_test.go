@@ -9,6 +9,8 @@ import (
 )
 
 func TestBcryptHasher_Hash_Success(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name     string
 		password string
@@ -39,6 +41,8 @@ func TestBcryptHasher_Hash_Success(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			hash, err := hasher.Hash(c.password)
 			testutil.DontWantError(t, err)
 			testutil.DontWant(t, hash, "")
@@ -49,6 +53,8 @@ func TestBcryptHasher_Hash_Success(t *testing.T) {
 }
 
 func TestBcryptHasher_Hash_DifferentHashesForSamePassword(t *testing.T) {
+	t.Parallel()
+
 	password := "samepassword"
 	hasher := NewHasher()
 
@@ -61,6 +67,8 @@ func TestBcryptHasher_Hash_DifferentHashesForSamePassword(t *testing.T) {
 }
 
 func TestBcryptHasher_Verify_Success(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name     string
 		password string
@@ -87,6 +95,8 @@ func TestBcryptHasher_Verify_Success(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			hash, err := hasher.Hash(c.password)
 			testutil.DontWantError(t, err)
 
@@ -97,6 +107,8 @@ func TestBcryptHasher_Verify_Success(t *testing.T) {
 }
 
 func TestBcryptHasher_Verify_Failure(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name          string
 		password      string
@@ -133,6 +145,8 @@ func TestBcryptHasher_Verify_Failure(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			hash, err := hasher.Hash(c.password)
 			testutil.DontWantError(t, err)
 
@@ -144,6 +158,8 @@ func TestBcryptHasher_Verify_Failure(t *testing.T) {
 }
 
 func TestBcryptHasher_Verify_InvalidHash(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name        string
 		password    string
@@ -175,6 +191,8 @@ func TestBcryptHasher_Verify_InvalidHash(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			err := hasher.Verify(c.password, c.invalidHash)
 			testutil.WantError(t, err)
 		})
@@ -182,6 +200,8 @@ func TestBcryptHasher_Verify_InvalidHash(t *testing.T) {
 }
 
 func TestBcryptHasher_DefaultCost(t *testing.T) {
+	t.Parallel()
+
 	hasher := NewHasher()
 	password := "testpassword"
 

@@ -17,6 +17,8 @@ func (m *mockTimeProvider) Now() time.Time {
 }
 
 func TestSnowflakeID_Next_ContinuosSequence(t *testing.T) {
+	t.Parallel()
+
 	snowflake := NewGenerator(
 		&mockTimeProvider{timestamp: 1700000000000},
 		syncutil.NewCounter(),
@@ -32,6 +34,8 @@ func TestSnowflakeID_Next_ContinuosSequence(t *testing.T) {
 }
 
 func TestSnowflakeID_Next_SequenceReset(t *testing.T) {
+	t.Parallel()
+
 	provider := &mockTimeProvider{timestamp: 1700000000000}
 	snowflake := NewGenerator(
 		provider,
@@ -56,6 +60,8 @@ func TestSnowflakeID_Next_SequenceReset(t *testing.T) {
 }
 
 func TestToSnowflakeID_Success(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name      string
 		timestamp int64
@@ -130,6 +136,8 @@ func TestToSnowflakeID_Success(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			got := toSnowflakeID(c.timestamp, c.instance, c.sequence)
 			testutil.GotWant(t, got, c.want)
 		})
@@ -137,6 +145,8 @@ func TestToSnowflakeID_Success(t *testing.T) {
 }
 
 func TestToSnowflakeID_NoOverlap(t *testing.T) {
+	t.Parallel()
+
 	// Ensure fields don't overlap by checking that OR-ing max values
 	// produces the expected result
 	timestamp := int64(0x1FFFFFFFFFF) // 41 bits
@@ -156,6 +166,8 @@ func TestToSnowflakeID_NoOverlap(t *testing.T) {
 }
 
 func TestToSnowflakeID_Panics(t *testing.T) {
+	t.Parallel()
+
 	cases := []struct {
 		name      string
 		timestamp int64
@@ -209,6 +221,8 @@ func TestToSnowflakeID_Panics(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			t.Parallel()
+
 			testutil.GotWantPanic(t, func() {
 				toSnowflakeID(c.timestamp, c.instance, c.sequence)
 			}, c.wantPanic)
