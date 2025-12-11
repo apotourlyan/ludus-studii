@@ -3,9 +3,14 @@ package testutil
 import (
 	"fmt"
 	"reflect"
+	"slices"
 	"strings"
 	"testing"
 )
+
+type numeric interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~float32 | ~float64
+}
 
 func GotWant[T comparable](t *testing.T, got T, want T) {
 	t.Helper()
@@ -53,6 +58,18 @@ func getDontWantText[T any](value T) string {
 		return fmt.Sprintf("don't want equal to %q\n", v)
 	default:
 		return fmt.Sprintf("don't want equal to%#v\n", v)
+	}
+}
+
+func GotWantOneOf[T comparable](t *testing.T, got T, valid []T) {
+	if !slices.Contains(valid, got) {
+		t.Errorf("got %v, want one of %v", got, valid)
+	}
+}
+
+func GotWantInRange[T numeric](t *testing.T, got T, low T, high T) {
+	if got < low || got > high {
+		t.Errorf("got %v, want in range [%v, %v]", got, low, high)
 	}
 }
 
